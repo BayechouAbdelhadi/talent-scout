@@ -18,19 +18,19 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { playerPositions } from "@/lib/constants";
-import { 
-  Search, 
-  Star, 
-  Filter, 
-  MapPin, 
-  Calendar, 
-  Sliders, 
+import {
+  Search,
+  Star,
+  Filter,
+  MapPin,
+  Calendar,
+  Sliders,
   CheckCircle2,
   ChevronDown,
   BookmarkPlus,
   MessageSquare
 } from "lucide-react";
-import { 
+import {
   Sheet,
   SheetContent,
   SheetDescription,
@@ -168,45 +168,45 @@ export default function DiscoverPage() {
     willRelocate: false,
     verified: false,
   });
-  
+
   // Filter the players based on selected filters
   const filteredPlayers = players.filter(player => {
     // Search query filter
     if (searchQuery && !player.name.toLowerCase().includes(searchQuery.toLowerCase())) {
       return false;
     }
-    
+
     // Availability filter
     if (selectedFilters.availability && !player.available) {
       return false;
     }
-    
+
     // Will relocate filter
     if (selectedFilters.willRelocate && !player.willRelocate) {
       return false;
     }
-    
+
     // Verified filter
     if (selectedFilters.verified && !player.verified) {
       return false;
     }
-    
+
     // Distance filter
     if (player.distanceKm > selectedFilters.distance) {
       return false;
     }
-    
+
     // Age range filter
     if (player.age < selectedFilters.ageRange[0] || player.age > selectedFilters.ageRange[1]) {
       return false;
     }
-    
+
     // Position filter
-    if (selectedFilters.positions.length > 0 && 
-        !selectedFilters.positions.includes(player.position.toLowerCase())) {
+    if (selectedFilters.positions.length > 0 &&
+      !selectedFilters.positions.includes(player.position.toLowerCase())) {
       return false;
     }
-    
+
     return true;
   });
 
@@ -215,7 +215,7 @@ export default function DiscoverPage() {
       const positions = prev.positions.includes(position)
         ? prev.positions.filter(pos => pos !== position)
         : [...prev.positions, position];
-      
+
       return {
         ...prev,
         positions,
@@ -270,7 +270,7 @@ export default function DiscoverPage() {
                 Clear all
               </Button>
             </div>
-            
+
             <Accordion type="single" collapsible className="w-full" defaultValue="position">
               <AccordionItem value="position" className="border-b-0">
                 <AccordionTrigger className="py-2">
@@ -287,8 +287,8 @@ export default function DiscoverPage() {
                   <div className="grid grid-cols-2 gap-2">
                     {['Goalkeeper', 'Defender', 'Midfielder', 'Striker', 'Winger', 'Full-back'].map((position) => (
                       <div key={position} className="flex items-center space-x-2">
-                        <Checkbox 
-                          id={`position-${position}`} 
+                        <Checkbox
+                          id={`position-${position}`}
                           checked={selectedFilters.positions.includes(position.toLowerCase())}
                           onCheckedChange={() => handlePositionFilter(position.toLowerCase())}
                         />
@@ -303,7 +303,7 @@ export default function DiscoverPage() {
                   </div>
                 </AccordionContent>
               </AccordionItem>
-              
+
               <AccordionItem value="age" className="border-b-0">
                 <AccordionTrigger className="py-2">
                   <span className="flex items-center gap-2 text-sm font-medium">
@@ -331,7 +331,7 @@ export default function DiscoverPage() {
                   </div>
                 </AccordionContent>
               </AccordionItem>
-              
+
               <AccordionItem value="location" className="border-b-0">
                 <AccordionTrigger className="py-2">
                   <span className="flex items-center gap-2 text-sm font-medium">
@@ -359,16 +359,16 @@ export default function DiscoverPage() {
                   </div>
                 </AccordionContent>
               </AccordionItem>
-              
+
               <AccordionItem value="availability" className="border-b-0">
                 <AccordionTrigger className="py-2">
                   <span className="flex items-center gap-2 text-sm font-medium">
                     Availability
                     {(selectedFilters.availability || selectedFilters.willRelocate || selectedFilters.verified) && (
                       <Badge variant="outline" className="rounded-full ml-2">
-                        {(selectedFilters.availability ? 1 : 0) + 
-                         (selectedFilters.willRelocate ? 1 : 0) + 
-                         (selectedFilters.verified ? 1 : 0)}
+                        {(selectedFilters.availability ? 1 : 0) +
+                          (selectedFilters.willRelocate ? 1 : 0) +
+                          (selectedFilters.verified ? 1 : 0)}
                       </Badge>
                     )}
                   </span>
@@ -376,10 +376,10 @@ export default function DiscoverPage() {
                 <AccordionContent>
                   <div className="space-y-3">
                     <div className="flex items-center space-x-2">
-                      <Checkbox 
+                      <Checkbox
                         id="available-for-trials"
                         checked={selectedFilters.availability}
-                        onCheckedChange={(checked) => 
+                        onCheckedChange={(checked) =>
                           handleFilterChange('availability', checked)
                         }
                       />
@@ -391,10 +391,10 @@ export default function DiscoverPage() {
                       </label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <Checkbox 
+                      <Checkbox
                         id="willing-to-relocate"
                         checked={selectedFilters.willRelocate}
-                        onCheckedChange={(checked) => 
+                        onCheckedChange={(checked) =>
                           handleFilterChange('willRelocate', checked)
                         }
                       />
@@ -406,10 +406,10 @@ export default function DiscoverPage() {
                       </label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <Checkbox 
+                      <Checkbox
                         id="verified"
                         checked={selectedFilters.verified}
-                        onCheckedChange={(checked) => 
+                        onCheckedChange={(checked) =>
                           handleFilterChange('verified', checked)
                         }
                       />
@@ -426,7 +426,7 @@ export default function DiscoverPage() {
             </Accordion>
           </div>
         </div>
-        
+
         <div className="flex-1">
           {/* Search and mobile filters */}
           <div className="flex gap-2 mb-6">
@@ -439,7 +439,7 @@ export default function DiscoverPage() {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            
+
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon" className="lg:hidden">
@@ -466,8 +466,8 @@ export default function DiscoverPage() {
                         <div className="grid grid-cols-2 gap-2">
                           {['Goalkeeper', 'Defender', 'Midfielder', 'Striker', 'Winger', 'Full-back'].map((position) => (
                             <div key={position} className="flex items-center space-x-2">
-                              <Checkbox 
-                                id={`mobile-position-${position}`} 
+                              <Checkbox
+                                id={`mobile-position-${position}`}
                                 checked={selectedFilters.positions.includes(position.toLowerCase())}
                                 onCheckedChange={() => handlePositionFilter(position.toLowerCase())}
                               />
@@ -482,7 +482,7 @@ export default function DiscoverPage() {
                         </div>
                       </AccordionContent>
                     </AccordionItem>
-                    
+
                     <AccordionItem value="age" className="border-b">
                       <AccordionTrigger>Age</AccordionTrigger>
                       <AccordionContent>
@@ -501,7 +501,7 @@ export default function DiscoverPage() {
                         </div>
                       </AccordionContent>
                     </AccordionItem>
-                    
+
                     <AccordionItem value="location" className="border-b">
                       <AccordionTrigger>Distance</AccordionTrigger>
                       <AccordionContent>
@@ -520,16 +520,16 @@ export default function DiscoverPage() {
                         </div>
                       </AccordionContent>
                     </AccordionItem>
-                    
+
                     <AccordionItem value="availability" className="border-b">
                       <AccordionTrigger>Availability</AccordionTrigger>
                       <AccordionContent>
                         <div className="space-y-3">
                           <div className="flex items-center space-x-2">
-                            <Checkbox 
+                            <Checkbox
                               id="mobile-available-for-trials"
                               checked={selectedFilters.availability}
-                              onCheckedChange={(checked) => 
+                              onCheckedChange={(checked) =>
                                 handleFilterChange('availability', checked)
                               }
                             />
@@ -541,10 +541,10 @@ export default function DiscoverPage() {
                             </label>
                           </div>
                           <div className="flex items-center space-x-2">
-                            <Checkbox 
+                            <Checkbox
                               id="mobile-willing-to-relocate"
                               checked={selectedFilters.willRelocate}
-                              onCheckedChange={(checked) => 
+                              onCheckedChange={(checked) =>
                                 handleFilterChange('willRelocate', checked)
                               }
                             />
@@ -556,10 +556,10 @@ export default function DiscoverPage() {
                             </label>
                           </div>
                           <div className="flex items-center space-x-2">
-                            <Checkbox 
+                            <Checkbox
                               id="mobile-verified"
                               checked={selectedFilters.verified}
-                              onCheckedChange={(checked) => 
+                              onCheckedChange={(checked) =>
                                 handleFilterChange('verified', checked)
                               }
                             />
@@ -574,9 +574,9 @@ export default function DiscoverPage() {
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>
-                  
-                  <Button 
-                    variant="outline" 
+
+                  <Button
+                    variant="outline"
                     className="w-full mt-4"
                     onClick={clearAllFilters}
                   >
@@ -585,7 +585,7 @@ export default function DiscoverPage() {
                 </div>
               </SheetContent>
             </Sheet>
-            
+
             <Select defaultValue="relevance">
               <SelectTrigger className="w-[150px] hidden sm:flex">
                 <SelectValue placeholder="Sort by" />
@@ -599,18 +599,18 @@ export default function DiscoverPage() {
               </SelectContent>
             </Select>
           </div>
-          
+
           {/* Active filters display */}
           {activeFilterCount > 0 && (
             <div className="flex flex-wrap items-center gap-2 mb-4">
               <span className="text-sm text-muted-foreground">Active filters:</span>
-              
+
               {selectedFilters.positions.length > 0 && (
                 <Badge variant="secondary" className="gap-1 rounded-full">
                   <span>Positions: {selectedFilters.positions.length}</span>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
+                  <Button
+                    variant="ghost"
+                    size="icon"
                     className="h-4 w-4 p-0 hover:bg-transparent"
                     onClick={() => handleFilterChange('positions', [])}
                   >
@@ -618,13 +618,13 @@ export default function DiscoverPage() {
                   </Button>
                 </Badge>
               )}
-              
+
               {(selectedFilters.ageRange[0] > 13 || selectedFilters.ageRange[1] < 30) && (
                 <Badge variant="secondary" className="gap-1 rounded-full">
                   <span>Age: {selectedFilters.ageRange[0]}-{selectedFilters.ageRange[1]}</span>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
+                  <Button
+                    variant="ghost"
+                    size="icon"
                     className="h-4 w-4 p-0 hover:bg-transparent"
                     onClick={() => handleFilterChange('ageRange', [13, 30])}
                   >
@@ -632,13 +632,13 @@ export default function DiscoverPage() {
                   </Button>
                 </Badge>
               )}
-              
+
               {selectedFilters.distance < 500 && (
                 <Badge variant="secondary" className="gap-1 rounded-full">
                   <span>Distance: {selectedFilters.distance} km</span>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
+                  <Button
+                    variant="ghost"
+                    size="icon"
                     className="h-4 w-4 p-0 hover:bg-transparent"
                     onClick={() => handleFilterChange('distance', 500)}
                   >
@@ -646,13 +646,13 @@ export default function DiscoverPage() {
                   </Button>
                 </Badge>
               )}
-              
+
               {selectedFilters.availability && (
                 <Badge variant="secondary" className="gap-1 rounded-full">
                   <span>Available for trials</span>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
+                  <Button
+                    variant="ghost"
+                    size="icon"
                     className="h-4 w-4 p-0 hover:bg-transparent"
                     onClick={() => handleFilterChange('availability', false)}
                   >
@@ -660,13 +660,13 @@ export default function DiscoverPage() {
                   </Button>
                 </Badge>
               )}
-              
+
               {selectedFilters.willRelocate && (
                 <Badge variant="secondary" className="gap-1 rounded-full">
                   <span>Will relocate</span>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
+                  <Button
+                    variant="ghost"
+                    size="icon"
                     className="h-4 w-4 p-0 hover:bg-transparent"
                     onClick={() => handleFilterChange('willRelocate', false)}
                   >
@@ -674,13 +674,13 @@ export default function DiscoverPage() {
                   </Button>
                 </Badge>
               )}
-              
+
               {selectedFilters.verified && (
                 <Badge variant="secondary" className="gap-1 rounded-full">
                   <span>Verified only</span>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
+                  <Button
+                    variant="ghost"
+                    size="icon"
                     className="h-4 w-4 p-0 hover:bg-transparent"
                     onClick={() => handleFilterChange('verified', false)}
                   >
@@ -688,10 +688,10 @@ export default function DiscoverPage() {
                   </Button>
                 </Badge>
               )}
-              
-              <Button 
-                variant="ghost" 
-                size="sm" 
+
+              <Button
+                variant="ghost"
+                size="sm"
                 className="text-xs h-7"
                 onClick={clearAllFilters}
               >
@@ -699,12 +699,12 @@ export default function DiscoverPage() {
               </Button>
             </div>
           )}
-          
+
           {/* Results count */}
           <p className="text-sm text-muted-foreground mb-4">
             Showing {filteredPlayers.length} player{filteredPlayers.length !== 1 ? 's' : ''}
           </p>
-          
+
           {/* Player cards grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredPlayers.length > 0 ? (
@@ -712,7 +712,7 @@ export default function DiscoverPage() {
                 <Link href={`/player/${player.id}`} key={player.id}>
                   <Card className="overflow-hidden hover:shadow-md transition-shadow h-full">
                     <div className="relative aspect-[4/3]">
-                      <Image 
+                      <Image
                         src={player.image}
                         alt={player.name}
                         fill
@@ -744,7 +744,7 @@ export default function DiscoverPage() {
                           <span className="text-sm font-medium">{player.rating}</span>
                         </div>
                       </div>
-                      
+
                       <div className="mt-3 flex flex-wrap gap-1">
                         {player.skills.map((skill, index) => (
                           <Badge key={index} variant="outline" className="text-xs">
@@ -752,15 +752,15 @@ export default function DiscoverPage() {
                           </Badge>
                         ))}
                       </div>
-                      
+
                       <Separator className="my-3" />
-                      
+
                       <div className="flex justify-between text-xs text-muted-foreground">
                         <span>{player.videoCount} videos</span>
                         <span>{player.endorsements} endorsements</span>
                         <span>{player.views} views</span>
                       </div>
-                      
+
                       <div className="mt-3 flex gap-2">
                         <Button variant="outline" size="sm" className="flex-1 gap-1 text-xs">
                           <BookmarkPlus className="h-3.5 w-3.5" />
@@ -784,8 +784,8 @@ export default function DiscoverPage() {
                 <p className="text-muted-foreground mt-1 max-w-md mx-auto">
                   Try adjusting your search filters to find more players that match your criteria.
                 </p>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   className="mt-4"
                   onClick={clearAllFilters}
                 >

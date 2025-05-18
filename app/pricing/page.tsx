@@ -1,16 +1,22 @@
+"use client";
+
 import Link from "next/link";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { useTranslation } from "@/lib/hooks/useTranslation";
+import { getUrlWithLang } from "@/lib/utils/navigation";
 
 export default function PricingPage() {
+  const { t, lang } = useTranslation();
+
   return (
     <div className="container py-12">
       {/* Header */}
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4">Simple, Transparent Pricing</h1>
+        <h1 className="text-4xl font-bold mb-4">{t('pricing.title')}</h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Choose the plan that best fits your needs. All plans include a 14-day free trial.
+          {t('pricing.subtitle')}
         </p>
       </div>
 
@@ -20,33 +26,33 @@ export default function PricingPage() {
         <Card>
           <CardHeader>
             <CardTitle>
-              <div className="text-lg font-semibold mb-2">Player Basic</div>
-              <div className="text-3xl font-bold">Free</div>
+              <div className="text-lg font-semibold mb-2">{t('pricing.plans.playerBasic.title')}</div>
+              <div className="text-3xl font-bold">{t('pricing.free')}</div>
             </CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-3 mb-6">
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>Basic player profile</span>
+                <span>{t('pricing.plans.playerBasic.features.profile')}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>1 video upload</span>
+                <span>{t('pricing.plans.playerBasic.features.video')}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>Basic statistics</span>
+                <span>{t('pricing.plans.playerBasic.features.stats')}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>Community features</span>
+                <span>{t('pricing.plans.playerBasic.features.community')}</span>
               </li>
             </ul>
           </CardContent>
           <CardFooter>
-            <Link href="/signup" className="w-full">
-              <Button className="w-full" variant="outline">Get Started</Button>
+            <Link href={getUrlWithLang('/signup', lang)} className="w-full">
+              <Button className="w-full" variant="outline">{t('pricing.getStarted')}</Button>
             </Link>
           </CardFooter>
         </Card>
@@ -55,41 +61,41 @@ export default function PricingPage() {
         <Card className="border-primary">
           <CardHeader>
             <CardTitle>
-              <div className="text-lg font-semibold mb-2">Player Pro</div>
-              <div className="text-3xl font-bold">£9.99<span className="text-lg text-muted-foreground">/month</span></div>
+              <div className="text-lg font-semibold mb-2">{t('pricing.plans.playerPro.title')}</div>
+              <div className="text-3xl font-bold">£9.99<span className="text-lg text-muted-foreground">{t('pricing.perMonth')}</span></div>
             </CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-3 mb-6">
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>Enhanced profile features</span>
+                <span>{t('pricing.plans.playerPro.features.enhancedProfile')}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>Unlimited video uploads</span>
+                <span>{t('pricing.plans.playerPro.features.unlimitedVideos')}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>Advanced statistics</span>
+                <span>{t('pricing.plans.playerPro.features.advancedStats')}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>Priority in search results</span>
+                <span>{t('pricing.plans.playerPro.features.searchPriority')}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>Direct messaging with scouts</span>
+                <span>{t('pricing.plans.playerPro.features.messaging')}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>Performance analytics</span>
+                <span>{t('pricing.plans.playerPro.features.analytics')}</span>
               </li>
             </ul>
           </CardContent>
           <CardFooter>
-            <Link href="/signup" className="w-full">
-              <Button className="w-full">Start Free Trial</Button>
+            <Link href={getUrlWithLang('/signup', lang)} className="w-full">
+              <Button className="w-full">{t('pricing.startFreeTrial')}</Button>
             </Link>
           </CardFooter>
         </Card>
@@ -98,37 +104,37 @@ export default function PricingPage() {
         <Card>
           <CardHeader>
             <CardTitle>
-              <div className="text-lg font-semibold mb-2">Scout Basic</div>
-              <div className="text-3xl font-bold">£49<span className="text-lg text-muted-foreground">/month</span></div>
+              <div className="text-lg font-semibold mb-2">{t('pricing.plans.scoutBasic.title')}</div>
+              <div className="text-3xl font-bold">£49<span className="text-lg text-muted-foreground">{t('pricing.perMonth')}</span></div>
             </CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-3 mb-6">
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>50 player views/month</span>
+                <span>{t('pricing.plans.scoutBasic.features.playerViews')}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>Basic search filters</span>
+                <span>{t('pricing.plans.scoutBasic.features.basicSearch')}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>Message players</span>
+                <span>{t('pricing.plans.scoutBasic.features.messaging')}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>Single shortlist</span>
+                <span>{t('pricing.plans.scoutBasic.features.shortlist')}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>Basic analytics</span>
+                <span>{t('pricing.plans.scoutBasic.features.analytics')}</span>
               </li>
             </ul>
           </CardContent>
           <CardFooter>
-            <Link href="/scout-registration" className="w-full">
-              <Button className="w-full" variant="outline">Start Free Trial</Button>
+            <Link href={getUrlWithLang('/scout-registration', lang)} className="w-full">
+              <Button className="w-full" variant="outline">{t('pricing.startFreeTrial')}</Button>
             </Link>
           </CardFooter>
         </Card>
@@ -137,41 +143,41 @@ export default function PricingPage() {
         <Card>
           <CardHeader>
             <CardTitle>
-              <div className="text-lg font-semibold mb-2">Scout Pro</div>
-              <div className="text-3xl font-bold">£99<span className="text-lg text-muted-foreground">/month</span></div>
+              <div className="text-lg font-semibold mb-2">{t('pricing.plans.scoutPro.title')}</div>
+              <div className="text-3xl font-bold">£99<span className="text-lg text-muted-foreground">{t('pricing.perMonth')}</span></div>
             </CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-3 mb-6">
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>Unlimited player views</span>
+                <span>{t('pricing.plans.scoutPro.features.unlimitedViews')}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>Advanced search filters</span>
+                <span>{t('pricing.plans.scoutPro.features.advancedSearch')}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>Trial management system</span>
+                <span>{t('pricing.plans.scoutPro.features.trialManagement')}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>Multiple shortlists</span>
+                <span>{t('pricing.plans.scoutPro.features.multipleShortlists')}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>Advanced analytics</span>
+                <span>{t('pricing.plans.scoutPro.features.advancedAnalytics')}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-primary" />
-                <span>Priority support</span>
+                <span>{t('pricing.plans.scoutPro.features.prioritySupport')}</span>
               </li>
             </ul>
           </CardContent>
           <CardFooter>
-            <Link href="/scout-registration" className="w-full">
-              <Button className="w-full">Start Free Trial</Button>
+            <Link href={getUrlWithLang('/scout-registration', lang)} className="w-full">
+              <Button className="w-full">{t('pricing.startFreeTrial')}</Button>
             </Link>
           </CardFooter>
         </Card>
@@ -179,39 +185,39 @@ export default function PricingPage() {
 
       {/* Enterprise Section */}
       <div className="bg-muted rounded-lg p-8 text-center mb-16">
-        <h2 className="text-2xl font-bold mb-4">Enterprise Solutions</h2>
+        <h2 className="text-2xl font-bold mb-4">{t('pricing.enterprise.title')}</h2>
         <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
-          Need a custom solution for your organization? We offer tailored packages for clubs and academies.
+          {t('pricing.enterprise.description')}
         </p>
-        <Button size="lg" variant="outline">Contact Sales</Button>
+        <Button size="lg" variant="outline">{t('pricing.enterprise.contactSales')}</Button>
       </div>
 
       {/* FAQs */}
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-2xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+        <h2 className="text-2xl font-bold text-center mb-8">{t('pricing.faq.title')}</h2>
         <div className="space-y-6">
           <div>
-            <h3 className="text-lg font-semibold mb-2">Can I change plans later?</h3>
+            <h3 className="text-lg font-semibold mb-2">{t('pricing.faq.changePlan.question')}</h3>
             <p className="text-muted-foreground">
-              Yes, you can upgrade or downgrade your plan at any time. Changes will be reflected in your next billing cycle.
+              {t('pricing.faq.changePlan.answer')}
             </p>
           </div>
           <div>
-            <h3 className="text-lg font-semibold mb-2">What payment methods do you accept?</h3>
+            <h3 className="text-lg font-semibold mb-2">{t('pricing.faq.payment.question')}</h3>
             <p className="text-muted-foreground">
-              We accept all major credit cards, PayPal, and bank transfers for enterprise customers.
+              {t('pricing.faq.payment.answer')}
             </p>
           </div>
           <div>
-            <h3 className="text-lg font-semibold mb-2">Is there a contract or commitment?</h3>
+            <h3 className="text-lg font-semibold mb-2">{t('pricing.faq.commitment.question')}</h3>
             <p className="text-muted-foreground">
-              No, all plans are month-to-month with no long-term commitment. You can cancel at any time.
+              {t('pricing.faq.commitment.answer')}
             </p>
           </div>
           <div>
-            <h3 className="text-lg font-semibold mb-2">Do you offer discounts for academies?</h3>
+            <h3 className="text-lg font-semibold mb-2">{t('pricing.faq.academyDiscount.question')}</h3>
             <p className="text-muted-foreground">
-              Yes, we offer special pricing for football academies and youth development programs. Contact our sales team for details.
+              {t('pricing.faq.academyDiscount.answer')}
             </p>
           </div>
         </div>

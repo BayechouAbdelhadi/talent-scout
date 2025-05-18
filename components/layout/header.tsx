@@ -7,11 +7,15 @@ import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 import { useSession, signOut } from "next-auth/react";
+import LanguageSelector from "@/components/language-selector";
+import { useTranslation } from "@/lib/hooks/useTranslation";
+import { getUrlWithLang } from "@/lib/utils/navigation";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { data: session } = useSession();
+  const { t, lang } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,48 +34,49 @@ export default function Header() {
     >
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href={getUrlWithLang("/", lang)} className="flex items-center space-x-2">
             <span className="text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-800 bg-clip-text text-transparent">
               TalentSpot
             </span>
           </Link>
           <nav className="hidden md:flex gap-6">
-            <Link href="/discover" className="text-sm font-medium hover:text-primary">
-              Discover Players
+            <Link href={getUrlWithLang("/discover", lang)} className="text-sm font-medium hover:text-primary">
+              {t('discover')}
             </Link>
-            <Link href="/how-it-works" className="text-sm font-medium hover:text-primary">
-              How It Works
+            <Link href={getUrlWithLang("/how-it-works", lang)} className="text-sm font-medium hover:text-primary">
+              {t('howItWorks')}
             </Link>
-            <Link href="/for-scouts" className="text-sm font-medium hover:text-primary">
-              For Scouts
+            <Link href={getUrlWithLang("/for-scouts", lang)} className="text-sm font-medium hover:text-primary">
+              {t('forScouts')}
             </Link>
-            <Link href="/pricing" className="text-sm font-medium hover:text-primary">
-              Pricing
+            <Link href={getUrlWithLang("/pricing", lang)} className="text-sm font-medium hover:text-primary">
+              {t('pricing')}
             </Link>
           </nav>
         </div>
 
         <div className="flex items-center gap-4">
+          <LanguageSelector />
           <ThemeToggle />
 
           {session ? (
             <div className="hidden md:flex items-center gap-4">
-              <Link href="/dashboard">
+              <Link href={getUrlWithLang("/dashboard", lang)}>
                 <Button variant="ghost" size="icon" className="rounded-full">
                   <UserCircle className="h-6 w-6" />
                 </Button>
               </Link>
-              <Button variant="ghost" onClick={() => signOut()}>
-                Log out
+              <Button variant="ghost" onClick={() => signOut({ callbackUrl: getUrlWithLang("/", lang) })}>
+                {t('login')}
               </Button>
             </div>
           ) : (
             <div className="hidden md:flex gap-4">
-              <Link href="/login">
-                <Button variant="ghost">Log in</Button>
+              <Link href={getUrlWithLang("/login", lang)}>
+                <Button variant="ghost">{t('login')}</Button>
               </Link>
-              <Link href="/signup">
-                <Button>Sign up</Button>
+              <Link href={getUrlWithLang("/signup", lang)}>
+                <Button>{t('signup')}</Button>
               </Link>
             </div>
           )}
@@ -92,55 +97,55 @@ export default function Header() {
         <div className="md:hidden p-4 bg-background border-t">
           <nav className="flex flex-col space-y-4">
             <Link
-              href="/discover"
+              href={getUrlWithLang("/discover", lang)}
               className="text-sm font-medium p-2 hover:bg-muted rounded-md"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Discover Players
+              {t('discover')}
             </Link>
             <Link
-              href="/how-it-works"
+              href={getUrlWithLang("/how-it-works", lang)}
               className="text-sm font-medium p-2 hover:bg-muted rounded-md"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              How It Works
+              {t('howItWorks')}
             </Link>
             <Link
-              href="/for-scouts"
+              href={getUrlWithLang("/for-scouts", lang)}
               className="text-sm font-medium p-2 hover:bg-muted rounded-md"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              For Scouts
+              {t('forScouts')}
             </Link>
             <Link
-              href="/pricing"
+              href={getUrlWithLang("/pricing", lang)}
               className="text-sm font-medium p-2 hover:bg-muted rounded-md"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Pricing
+              {t('pricing')}
             </Link>
             {!session && (
               <>
                 <Link
-                  href="/login"
+                  href={getUrlWithLang("/login", lang)}
                   className="text-sm font-medium p-2 hover:bg-muted rounded-md"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Log in
+                  {t('login')}
                 </Link>
                 <Link
-                  href="/signup"
+                  href={getUrlWithLang("/signup", lang)}
                   className="text-sm font-medium p-2 hover:bg-muted rounded-md"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Sign up
+                  {t('signup')}
                 </Link>
               </>
             )}
             {session && (
               <>
                 <Link
-                  href="/dashboard"
+                  href={getUrlWithLang("/dashboard", lang)}
                   className="text-sm font-medium p-2 hover:bg-muted rounded-md"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -149,11 +154,11 @@ export default function Header() {
                 <button
                   className="text-sm font-medium p-2 hover:bg-muted rounded-md text-left"
                   onClick={() => {
-                    signOut();
+                    signOut({ callbackUrl: getUrlWithLang("/", lang) });
                     setIsMobileMenuOpen(false);
                   }}
                 >
-                  Log out
+                  {t('login')}
                 </button>
               </>
             )}

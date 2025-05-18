@@ -5,6 +5,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { Providers } from '@/components/providers';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
+import { headers } from 'next/headers';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,8 +19,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const headersList = headers();
+  const lang = headersList.get('x-language') || 'en';
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <body className={inter.className}>
         <Providers>
           <div className="flex min-h-screen flex-col">
